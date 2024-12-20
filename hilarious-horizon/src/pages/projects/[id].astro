@@ -1,0 +1,25 @@
+---
+import ContainLayout from "../../layouts/ContainLayout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection('projects')
+
+  return posts.map(post => ({
+    params: { id: post.id },
+    props: { post }
+  }))
+}
+
+const { post } = Astro.props
+const { Content } = await render(post)
+---
+
+<ContainLayout title={post.data.title} category="projects">
+  <h1>{post.data.title}</h1>
+  <p>Author: {post.data.author}</p>
+
+  <div>
+    <Content />
+  </div>
+</ContainLayout>

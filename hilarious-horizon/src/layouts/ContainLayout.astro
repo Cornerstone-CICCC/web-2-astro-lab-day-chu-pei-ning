@@ -2,7 +2,7 @@
 import Header from "../components/Header.astro"
 import Footer from "../components/Footer.astro"
 import "../styles/global.css"
-const { title, desc } = Astro.props
+const { title, desc, category } = Astro.props
 ---
 
 <!doctype html>
@@ -16,6 +16,9 @@ const { title, desc } = Astro.props
 	</head>
 	<body>
 		<Header />
+    {category && (
+      <a href={`/${category}`}>Back to {category.toUpperCase()}</a>
+    )}
 		<div class="container">
 			<slot />
 		</div>

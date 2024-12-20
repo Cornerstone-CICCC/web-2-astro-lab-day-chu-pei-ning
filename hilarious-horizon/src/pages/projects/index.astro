@@ -1,0 +1,37 @@
+---
+import Layout from "../../layouts/Layout.astro"
+import { getCollection } from "astro:content";
+
+// Get blog posts collection
+const posts = await getCollection('projects')
+
+posts.sort((a, b) => {
+  const dateA = new Date(a.data.date)
+  const dateB = new Date(b.data.date)
+
+  return dateB.getTime() - dateA.getTime()
+})
+
+const pageTitle = "Projects"
+const pageDesc = "This page stores projects"
+---
+
+<Layout title={pageTitle} desc={pageDesc}>
+  <h1>{pageTitle}</h1>
+
+  {posts.map((post) => (
+    <article>
+      <h3>{post.data.title}</h3>
+      <p>Published: {post.data.date}</p>
+      <em>{post.data.author}</em>
+      <div>
+      </div>
+      <div>
+        <a href={`/projects/${post.data.id}`}>Read more...</a>
+      </div>
+    </article>
+    <hr />
+  )
+)}
+
+</Layout>
